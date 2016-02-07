@@ -10,9 +10,7 @@
     <link rel="icon" href="../../favicon.ico">
     <title>Form Maker - Form Fields</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.css">
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
     <link href="css/iconSize.css" rel="stylesheet">
 </head>
 
@@ -125,8 +123,7 @@
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label for="inputDOB">Date of Birth</label>
-                            <input type="text" class="form-control" id="inputDOB"
-                                   onclick="$('#datetimepicker1').datetimepicker({value:''})">
+                            <input type="date" class="form-control" id="inputDOB" placeholder="mm/dd/yyyy">
                         </div>
                     </form>
                 </div>
@@ -316,11 +313,5 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!--DATETIMEPICKER CDN FAILS NOW - I WILL FIX THIS WHEN CDN COMES BACK-->
-<script src="../js/jquery.datetimepicker.full.js"></script>
-<!--DATETIMEPICKER CDN FAILS NOW - I WILL FIX THIS WHEN CDN COMES BACK-->
-
-<script src="../js/setDatepicker.js"></script>
 </body>
 </html>
