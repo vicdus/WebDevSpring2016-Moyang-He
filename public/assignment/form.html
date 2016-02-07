@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title>Form Maker</title>
+    <title>Form Maker - Form</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="dashboard.css" rel="stylesheet">
 </head>
@@ -48,68 +48,75 @@
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+            <h1>Forms</h1>
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#form">Form</a></li>
-                <li><a data-toggle="tab" href="#fields">Fields</a></li>
+                <li class="active"><a href="form.html">Form</a></li>
+                <li><a href="form-fields.html">Fields</a></li>
             </ul>
 
-            <div class="tab-content">
-                <div id="form" class="tab-pane fade in active">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Form Name</th>
-                                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Action</th>
-                            </tr>
-                            </thead>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Form Name</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Action</th>
+                    </tr>
+                    </thead>
 
-                            <tbody>
-                            <tr>
-                                <td><input type="text" id="username"></td>
-                                <td>
-                                    <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;<span
-                                        class="glyphicon glyphicon-pencil"></span>
-                                </td>
-                            </tr>
+                    <tbody>
+                    <tr>
+                        <td><input type="text" id="name" placeholder="Name"></td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </td>
+                    </tr>
 
-                            <tr>
-                                <td>Registration Form</td>
-                                <td>
-                                    <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;<span
-                                        class="glyphicon glyphicon-pencil"></span>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>Registration Form</td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                    </tr>
 
-                            <tr>
-                                <td>Contact List</td>
-                                <td>
-                                    <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;<span
-                                        class="glyphicon glyphicon-pencil"></span>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>Contact List</td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                    </tr>
 
-                            <tr>
-                                <td>To Do List</td>
-                                <td>
-                                    <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;<span
-                                        class="glyphicon glyphicon-pencil"></span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="fields" class="tab-pane fade">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" scrolling=yes src="form-fields.html" frameborder="0"></iframe>
-                    </div>
-                </div>
+                    <tr>
+                        <td>To Do List</td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-
-
         </div>
+
+
     </div>
 </div>
 <!-- Bootstrap core JavaScript
@@ -117,5 +124,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 </body>
 </html>

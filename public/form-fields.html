@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Form Maker - Forms</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="form-fields.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.css">
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12  col-md-12 col-xs-12">
+            
+
+
+
+
+
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputFirstName">First Name</label>
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                </div>
+            </form>
+        </div>
+
+
+            <!--<form class="form-horizontal">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="inputFirstName">First Name</label>-->
+                        <!--<input type="text" class="form-control" id="inputFirstName" placeholder="First Name">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <div class="col-sm-4 col-md-4 col-xs-4">
+                    <div class="form-group">
+                        <label for="inputLastName">Last Name Name</label>
+                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputDOB">Date of Birth</label>
+                    <input type="text" class="form-control" id="inputDOB"
+                           onclick="$('#datetimepicker1').datetimepicker({value:''})">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputGender">Gender</label>
+                    <select class="form-control" id="inputGender">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Role</label>
+                    <div class="checkbox">
+                        <label for="isAdmin">
+                            <input type="checkbox" value="" id="isAdmin">
+                            Admin
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="isStudent">
+                            <input type="checkbox" value="" id="isStudent">
+                            Student
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label for="isUser">
+                            <input type="checkbox" value="" id="isUser">
+                            User
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label>License Agreement</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="licenseAgree" id="optionsRadios1" value="option1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="licenseAgree" id="optionsRadios2" value="option2" checked>
+                            No
+                        </label>
+                    </div>
+                </div>
+
+                <hr size=8>
+                <div class="form-group">
+                    <label for="sel1">Add New fields:</label>
+                    <select class="form-control" id="sel1">
+                        <option>Single Line Text</option>
+                        <option>Date</option>
+                        <option>Dropdown</option>
+                        <option>Checkboxes</option>
+                        <option>Radio buttons</option>
+                        <option>Paragraph Text Field</option>
+                    </select>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!--DATETIMEPICKER CDN FAILS NOW - I WILL FIX THIS WHEN CDN COMES BACK-->
+<script src="js/jquery.datetimepicker.full.js"></script>
+<!--DATETIMEPICKER CDN FAILS NOW - I WILL FIX THIS WHEN CDN COMES BACK-->
+
+<script src="js/setDatepicker.js"></script>
+</body>
+</html>
