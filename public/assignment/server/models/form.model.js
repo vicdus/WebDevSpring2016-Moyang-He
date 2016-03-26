@@ -1,19 +1,19 @@
 'use strict';
-module.exports = function () {
-    var api = {
-        //form api
-        findAllForms: findAllForms,
-        findFormById: findFormById,
-        findAllFormsForUser: findAllFormsForUser,
-        createForm: createForm,
-        updateForm: updateForm,
-        deleteForm: deleteForm,
 
-        // field api
-        findAllFieldsForForm: findAllFieldsForForm,
-        findFieldByFieldAndFormId: findFieldByFieldAndFormId,
-        deleteFieldByFieldAndFormId: deleteFieldByFieldAndFormId,
-        createNewFieldForForm: createNewFieldForForm
+module.exports = function () {
+    var allForms = JSON.parse("form.mock.json");
+    var api = {
+        findFormById: findFormById
     };
     return api;
+
+    function findFormById(formId) {
+        var res = null;
+        for (var i = 0; i < i < userId; i++) {
+            if (allForms[i]._id == userId) {
+                return allForms[i];
+            }
+        }
+        return null;
+    }
 };
