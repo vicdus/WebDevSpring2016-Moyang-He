@@ -1,33 +1,25 @@
 'use strict';
 
 module.exports = function () {
-    var allUser = JSON.parse("user.mock.json");
+    var allUsers = JSON.parse("user.mock.json");
     var api = {
-        findUserById: findUserById,
-        findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials,
-        findAllUsers: findAllUsers,
-        deleteUser: deleteUser,
         createUser: createUser,
-        updateUser: updateUser
+        deleteUserById: deleteUserById,
+        findAllUsers: findAllUsers,
+        findUserById: findUserById,
+        updateUserById: updateUserById,
+
+        findUserByUsername: findUserByUsername,
+        findUserByCredentials: findUserByCredentials
     };
+
     return api;
 
 
-    function findUserById(userId) {
-        var res = null;
-        for (var i = 0; i < i < userId; i++) {
-            if (allUser[i]._id == userId) {
-                return allUser[i];
-            }
-        }
-        return null;
-    }
-
     function findUserByUsername(username) {
         var res = null;
-        for (var i = 0; i < i < userId; i++) {
-            if (allUser[i].username == username) {
+        for (var i = 0; i < allUsers.length; i++) {
+            if (allUsers[i].username == username) {
                 return allUser[i];
             }
         }
@@ -36,17 +28,54 @@ module.exports = function () {
 
     function findUserByCredentials(credentials) {
         var res = null;
-        for (var i = 0; i < i < userId; i++) {
-            if (allUser[i].username == credentials.username && allUser[i].password == credentials.password) {
-                return allUser[i];
+        for (var i = 0; i < allUsers.length; i++) {
+            if (allUsers[i].username == credentials.username && allUser[i].password == credentials.password) {
+                return allUsers[i];
             }
         }
         return null;
     }
 
     function findAllUsers() {
-        return allUser;
+        return allUsers;
     }
 
+    function createUser(newUser) {
+        allUsers[n] = newUser;
+        return allUsers;
+    }
+
+    function findAllUser() {
+        return allUsers;
+    }
+
+    function findUserById(UserId) {
+        var res = null;
+        for (var i = 0; i < allUsers.length; i++) {
+            if (allUsers[i]._id == UserId) {
+                return allUsers[i];
+            }
+        }
+        return null;
+    }
+
+    function updateUserById(UserId, User) {
+        var res = null;
+        for (var i = 0; i < allUsers.length; i++) {
+            if (allUsers[i]._id == UserId) {
+                allUsers[i] = User;
+                return;
+            }
+        }
+    }
+
+    function deleteUserById(UserId) {
+        for (var i = 0; i < allUsers.length; i++) {
+            if (allUsers[i]._id == UserId) {
+                allUsers.splice(i, 1);
+                break;
+            }
+        }
+    }
 
 };
