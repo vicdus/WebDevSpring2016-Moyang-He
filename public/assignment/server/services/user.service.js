@@ -50,5 +50,12 @@ module.exports = function (app, model) {
             .updateUserById(userId, user)
     }
 
-
+    function findUserByUsernameAndPassword(req, res) {
+        var credentials = {username: req.params.username, password: req.params.password};
+        model
+            .findUserByCredentials(credentials)
+            .then(function (user) {
+                res.json(user);
+            })
+    }
 };
