@@ -2,7 +2,7 @@
 
 module.exports = function () {
     var api;
-    var allForms = JSON.parse("form.mock.json");
+    var allForms = require("./form.mock.json");
     api = {
         createForm: createForm,
         deleteFormById:deleteFormById,

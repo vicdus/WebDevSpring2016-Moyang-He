@@ -7,7 +7,7 @@ module.exports = function (app, model) {
     app.get("/api/assignment/user/:id", findUserById);
     app.put("/api/assignment/user/:id", updateUser);
 
-    app.get("/api/assignment/user/username=:username", findUserByUsername);
+    //app.get("/api/assignment/user/username=:username", findUserByUsername);
     app.get("/api/assignment/user/username=:username&password=:password", findUserByUsernameAndPassword);
 
     function createUser(req, res) {

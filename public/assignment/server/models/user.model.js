@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = function () {
-    var allUsers = JSON.parse("user.mock.json");
-    var api = {
+    var api;
+    var allUsers = require("./user.mock.json");
+    api = {
         createUser: createUser,
         deleteUserById: deleteUserById,
         findAllUsers: findAllUsers,
@@ -20,7 +21,7 @@ module.exports = function () {
         var res = null;
         for (var i = 0; i < allUsers.length; i++) {
             if (allUsers[i].username == username) {
-                return allUser[i];
+                return allUsers[i];
             }
         }
         return null;
@@ -29,7 +30,7 @@ module.exports = function () {
     function findUserByCredentials(credentials) {
         var res = null;
         for (var i = 0; i < allUsers.length; i++) {
-            if (allUsers[i].username == credentials.username && allUser[i].password == credentials.password) {
+            if (allUsers[i].username == credentials.username && allUsers[i].password == credentials.password) {
                 return allUsers[i];
             }
         }
