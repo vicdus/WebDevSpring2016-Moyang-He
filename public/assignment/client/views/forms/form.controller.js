@@ -3,7 +3,7 @@
 (function () {
     FormBuilderApp.controller('FormController', function ($scope, $rootScope, FormService) {
         var formId = -1;
-        var userId = $rootScope.currentUser._id;
+        var userId = $rootScope.user._id;
 
         var pullData = function () {
             FormService.findAllFormsForUser(userId, function (x) {

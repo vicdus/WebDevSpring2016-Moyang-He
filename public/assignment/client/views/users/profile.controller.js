@@ -1,26 +1,17 @@
 "use strict";
 
 (function () {
-    FormBuilderApp.controller("ProfileController", function ($scope, $rootScope, $location, UserService) {
-        var curUser = $rootScope.currentUser;
-
-        $scope.username = curUser.username;
-        $scope.password = curUser.password;
-        $scope.firstName = curUser.firstName;
-        $scope.lastName = curUser.lastName;
-        $scope.email = curUser.email;
+    FormBuilderApp.controller("ProfileController", ProfileController);
+    function ProfileController($scope, $rootScope, $location, UserService) {
+        $scope.username = $rootScope.user.username;
+        $scope.password = $rootScope.user.password;
+        $scope.firstName = $rootScope.user.firstName;
+        $scope.lastName = $rootScope.user.lastName;
+        $scope.email = $rootScope.user.email;
 
         $scope.update = function () {
-            curUser.username = $scope.username;
-            curUser.password = $scope.password;
-            curUser.firstName = $scope.firstName;
-            curUser.lastName = $scope.lastName;
-            curUser.email = $scope.email;
-            UserService.updateUser(curUser._id, curUser, function () {
-            })
-        };
-
-
-    })
+            console.log($rootScope.user);
+        }
+    }
 
 })();

@@ -1,32 +1,24 @@
-"use strict";
-
 (function () {
-    FormBuilderApp.controller('LoginController', function ($rootScope, $location, UserService) {
-        var model = this;
-        model.login = function (){
-            var username = model.username;
-            var pwd = model.password;
-            UserService.findUserByUsernameAndPassword(username, pwd)
-                .then(function(user){
-                    if(user != null){
-                        $rootScope.currentUser = user;
-                        $location.path("/profile")
+    'use strict';
+    FormBuilderApp.controller("LoginController", LoginController);
+
+    function LoginController(UserService, $scope, $rootScope, $location) {
+        $scope.login = login;
+
+        function login() {
+            var username = $scope.username;
+            var pwd = $scope.password;
+            UserService
+                .findUserByCredentials(username, pwd)
+                .then(function (user) {
+                        if (user != null) {
+                            $rootScope.user = user;
+                            console.log(user);
+                            $location.url("/profile");
+                        }
                     }
-                })
-        };
-    })
+                )
+        }
+
+    }
 })();
-
-
-
-
-
-
-//$scope.login = function () {
-//    UserService.findUserByCredentials($scope.username, $scope.password, function (user) {
-//        if (user != null) {
-//            $rootScope.currentUser = user;
-//            $location.path("/profile")
-//        }
-//    })
-//};

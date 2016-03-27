@@ -7,13 +7,13 @@
         };
 
         $scope.isLogin = function () {
-            return $scope.currentUser != null;
+            return $scope.user != null;
         };
 
         $scope.isAdminLogin = function () {
-            if ($scope.isLogin() && $rootScope.currentUser.roles != undefined) {
-                for (var i = 0; i < $rootScope.currentUser.roles.length; i++) {
-                    if ($rootScope.currentUser.roles[i] == "admin") {
+            if ($scope.isLogin() && $rootScope.user.roles != undefined) {
+                for (var i = 0; i < $rootScope.user.roles.length; i++) {
+                    if ($rootScope.user.roles[i] == "admin") {
                         return true;
                     }
                 }

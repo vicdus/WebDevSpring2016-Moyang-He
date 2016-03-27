@@ -4,13 +4,13 @@
     FormBuilderApp.controller('HeaderController', function ($scope, $rootScope) {
 
         $scope.isLogin = function () {
-            return $rootScope.currentUser != null;
+            return $rootScope.user != null;
         };
 
         $scope.isAdminLogin = function () {
-            if ($scope.isLogin() && $rootScope.currentUser.roles != undefined) {
-                for (var i = 0; i < $rootScope.currentUser.roles.length; i++) {
-                    if ($rootScope.currentUser.roles[i] == "admin") {
+            if ($scope.isLogin() && $rootScope.user.roles != undefined) {
+                for (var i = 0; i < $rootScope.user.roles.length; i++) {
+                    if ($rootScope.user.roles[i] == "admin") {
                         return true;
                     }
                 }
@@ -21,7 +21,7 @@
 
         $scope.username = function(){
             if($scope.isLogin()){
-                return $rootScope.currentUser.username;
+                return $rootScope.user.username;
             }else{
                 return "HIDEN";
             }
@@ -29,7 +29,7 @@
 
 
         $scope.logout = function () {
-            $rootScope.currentUser = null;
+            $rootScope.user = null;
         }
 
     });
