@@ -7,9 +7,9 @@ module.exports = function () {
     api = {
         createUser: createUser,
         //deleteUserById: deleteUserById,
-        findAllUsers: findAllUsers,
+        //findAllUsers: findAllUsers,
         //findUserById: findUserById,
-        //updateUserById: updateUserById,
+        updateUserById: updateUserById,
 
         //findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials
@@ -39,12 +39,12 @@ module.exports = function () {
         }
         return deferred.promise;
     }
-
-    function findAllUsers() {
-        var deferred = q.defer();
-        deferred.resolve(allUsers);
-        return deferred.promise;
-    }
+    //
+    //function findAllUsers() {
+    //    var deferred = q.defer();
+    //    deferred.resolve(allUsers);
+    //    return deferred.promise;
+    //}
 
     function createUser(newUser) {
         var deferred = q.defer();
@@ -53,26 +53,28 @@ module.exports = function () {
         return deferred.promise;
     }
 
-
-    //function findUserById(UserId) {
-    //    var res = null;
+    //
+    //function findUserById(userId) {
+    //    var deferred = q.defer();
     //    for (var i = 0; i < allUsers.length; i++) {
-    //        if (allUsers[i]._id == UserId) {
-    //            return allUsers[i];
+    //        if (allUsers[i]._id == userId) {
+    //            deferred.resolve(allUsers[i]);
     //        }
     //    }
-    //    return null;
+    //    return deferred.promise;
     //}
 
-    //function updateUserById(UserId, User) {
-    //    var res = null;
-    //    for (var i = 0; i < allUsers.length; i++) {
-    //        if (allUsers[i]._id == UserId) {
-    //            allUsers[i] = User;
-    //            return;
-    //        }
-    //    }
-    //}
+    function updateUserById(UserId, User) {
+        var deferred = q.defer();
+        for (var i = 0; i < allUsers.length; i++) {
+            if (allUsers[i]._id == UserId) {
+                allUsers[i] = User;
+                deferred.resolve(User);
+                break;
+            }
+        }
+        return deferred.promise;
+    }
 
     //function deleteUserById(UserId) {
     //    for (var i = 0; i < allUsers.length; i++) {

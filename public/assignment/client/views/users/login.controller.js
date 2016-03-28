@@ -13,7 +13,6 @@
                 .then(function (user) {
                         if (user != null) {
                             $rootScope.user = user;
-                            console.log(user);
                             $location.url("/profile");
                         }
                     }

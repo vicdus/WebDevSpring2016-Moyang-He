@@ -9,9 +9,9 @@
             //findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             //findAllUsers: findAllUsers,
-            createUser: createUser
+            createUser: createUser,
             //deleteUserById: deleteUserById,
-            //updateUser: updateUser
+            updateUser: updateUser
         };
 
 
@@ -64,13 +64,15 @@
         //        })
         //}
         //
-        //function updateUser(userId, user) {
-        //    $http
-        //        .post("/api/assignment/user/" + userId, user)
-        //        .success(function (res) {
-        //            return res;
-        //        })
-        //}
+        function updateUser(userId, user) {
+            var deferred = $q.defer();
+            $http
+                .put("/api/assignment/user/" + userId, user)
+                .success(function (modifiedUser) {
+                     deferred.resolve(modifiedUser);
+                });
+            return deferred.promise;
+        }
 
         return api;
 

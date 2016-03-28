@@ -10,7 +10,19 @@
         $scope.email = $rootScope.user.email;
 
         $scope.update = function () {
-            console.log($rootScope.user);
+            var modifiedUser = {
+                username: $scope.username,
+                password: $scope.password,
+                _id: $rootScope.user._id,
+                firstName: $scope.firstName,
+                lastName: $scope.lastName,
+                email: $scope.email
+            };
+            UserService
+                .updateUser($rootScope.user._id, modifiedUser)
+                .then(function (user) {
+                    $rootScope.user = user;
+                })
         }
     }
 

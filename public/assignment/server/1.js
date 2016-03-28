@@ -1,14 +1,10 @@
 (function () {
-    //var yioo  = require("./models/user.model.js")();
-    ////console.log(yioo);
-    //
-    //a = yioo.findUserByUsername("ed");
-    ////a = yioo.findUserByUsername("ed");
-    //console.log(a);
+    var form = require("./models/form.mock.json");
+    //console.log(form);
+    var yo = form.filter(function(form){
+        return form.userId == 123;
+    });
 
-    var a = function(s){
-        return s;
-    };
+    console.log(yo)
 
-    console.log(a)
 })();
