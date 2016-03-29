@@ -3,9 +3,9 @@
 module.exports = function (app, model) {
     app.get("/api/assignment/user/:userId/form", findAllFormsForUser);
     //app.get("/api/assignment/form/:formId", findFormById);
-    //app.delete("/api/assignment/form/:formId", deleteForm);
+    app.delete("/api/assignment/form/:formId", deleteForm);
     app.post("/api/assignment/user/:userId/form", createFormForUser);
-    //app.put("/api/assignment/form/:formId", updateForm);
+    app.put("/api/assignment/form/:formId", updateForm);
 
     function findAllFormsForUser(req, res) {
         model
@@ -25,11 +25,14 @@ module.exports = function (app, model) {
     //        });
     //}
     //
-    //function deleteForm(req, res) {
-    //    var formId = req.params.formId;
-    //    model
-    //        .deleteFormById(formId);
-    //}
+    function deleteForm(req, res) {
+        var formId = req.params.formId;
+        model
+            .deleteFormById(formId)
+            .then(function(forms){
+                res.json(forms);
+            });
+    }
     //
     function createFormForUser(req, res) {
         var form = req.body;
@@ -40,15 +43,15 @@ module.exports = function (app, model) {
             });
     }
 
-    //
-    //function updateForm(req, res) {
-    //    var formId = req.params.formId;
-    //    var form = req.body;
-    //    model
-    //        .updateFormById(formId, form)
-    //        .then(function (users) {
-    //            res.json(users);
-    //        });
-    //}
+
+    function updateForm(req, res) {
+        var formId = req.params.formId;
+        var form = req.body;
+        model
+            .updateFormById(formId, form)
+            .then(function (forms) {
+                res.json(forms);
+            });
+    }
 
 };

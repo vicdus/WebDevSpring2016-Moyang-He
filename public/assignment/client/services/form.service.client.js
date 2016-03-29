@@ -7,16 +7,15 @@
         var api;
         api = {
             createFormForUser: createFormForUser,
-            findAllFormsForUser: findAllFormsForUser
-            //deleteFormById: deleteFormById,
-            //updateFormById: updateFormById
+            findAllFormsForUser: findAllFormsForUser,
+            deleteFormById: deleteFormById,
+            updateFormById: updateFormById
         };
         return api;
 
         function createFormForUser(userid, newForm) {
             var deferred = $q.defer();
-            console.log(newForm);
-            $http.post("/api/assignment/user/form", newForm)
+            $http.post("/api/assignment/user/" + newForm.userId + "/form", newForm)
                 .success(function (forms) {
                     deferred.resolve(forms);
                 });
@@ -33,22 +32,22 @@
         }
 
         //
-        //function deleteFormById(formId) {
-        //    var deferred = $q.defer();
-        //    $http.delete("api/assignment/form/" + formId)
-        //        .success(function (forms) {
-        //            deferred.resolve();
-        //        });
-        //    return deferred.promise;
-        //}
-        //
-        //function updateFormById(formId, newForm) {
-        //    var deferred = $q.defer();
-        //    $http.post("api/assignment/form" + formId, newForm)
-        //        .success(function (forms) {
-        //            deferred.resolve();
-        //        });
-        //    return deferred.promise;
-        //}
+        function deleteFormById(formId) {
+            var deferred = $q.defer();
+            $http.delete("/api/assignment/form/" + formId)
+                .success(function (forms) {
+                    deferred.resolve(forms);
+                });
+            return deferred.promise;
+        }
+
+        function updateFormById(formId, newForm) {
+            var deferred = $q.defer();
+            $http.put("/api/assignment/form/" + formId, newForm)
+                .success(function (forms) {
+                    deferred.resolve(forms);
+                });
+            return deferred.promise;
+        }
     }
 })();

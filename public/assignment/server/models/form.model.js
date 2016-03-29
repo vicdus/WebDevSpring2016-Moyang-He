@@ -5,7 +5,10 @@ module.exports = function () {
     var api;
     var allForms = require("./form.mock.json");
     api = {
-        findFormsByUserId: findFormsByUserId
+        findFormsByUserId: findFormsByUserId,
+        createForm: createForm,
+        deleteFormById: deleteFormById,
+        updateFormById: updateFormById
     };
     return api;
 
@@ -21,7 +24,7 @@ module.exports = function () {
     //
     function createForm(newForm) {
         allForms.push(newForm);
-        return api.findAllFormsForUser(newForm.userId);
+        return api.findFormsByUserId(newForm.userId);
     }
 
     //
@@ -39,24 +42,25 @@ module.exports = function () {
     //    return null;
     //}
     //
-    //function updateFormById(formId, form) {
-    //    var res = null;
-    //    for (var i = 0; i < allForms.length; i++) {
-    //        if (allForms[i]._id == formId) {
-    //            allForms[i] = form;
-    //            return;
-    //        }
-    //    }
-    //}
-    //
-    //function deleteFormById(formId) {
-    //    for (var i = 0; i < allForms.length; i++) {
-    //        if (allForms[i]._id == formId) {
-    //            allForms.splice(i, 1);
-    //            break;
-    //        }
-    //    }
-    //}
+    function updateFormById(formId, form) {
+        var deferred = q.defer();
+        var userId = findUserIdByFormId(formId);
+        for (var i = 0; i < allForms.length; i++) {
+            if (allForms[i]._id == formId) {
+                allForms[i] = form;
+            }
+        }
+        return api.findFormsByUserId(userId);
+    }
+
+    function deleteFormById(formId) {
+        var deferred = q.defer();
+        var userId = findUserIdByFormId(formId);
+        allForms = allForms.filter(function (form) {
+            return form._id != formId;
+        });
+        return api.findFormsByUserId(userId);
+    }
 
     function findFormsByUserId(userId) {
         var deferred = q.defer();
@@ -66,5 +70,14 @@ module.exports = function () {
         deferred.resolve(res);
         return deferred.promise;
     }
+
+    function findUserIdByFormId(formId) {
+        for (var i = 0; i < allForms.length; i++) {
+            if (allForms[i]._id == formId) {
+                return allForms[i].userId;
+            }
+        }
+    }
+
 
 };
