@@ -1,248 +1,85 @@
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
+<div ng-controller="FieldController">
+    <h1 class="page-header">Forms : {{form.title}}</h1>
+    <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active' : $location.url().indexOf('forms') != -1}" role="presentation"><a href="#/forms">Forms</a>
+            </li>
+            <li ng-class="{'active' : $location.url().indexOf('fields') != -1}" role="presentation"><a href="#/fields">Fields</a>
+            </li>
+        </ul>
+    </ul>
+    <br>
+    <form>
+        <div ng-repeat="curField in form.fields">
             <div class="form-group">
-                <label for="inputFirstName">First Name</label>
-                <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                <label>{{curField.label}}</label>
+                <div class="input-group">
+                    <div ng-switch="curField.fieldType">
+                        <div ng-switch-when="TEXT">
+                            <input class="form-control" type="text" placeholder="{{curField.placeholder}}">
+                        </div>
+                        <div ng-switch-when="TEXTAREA">
+                            <textarea class="form-control" placeholder="{{curField.placeholder}}"></textarea>
+                        </div>
+                        <div ng-switch-when="EMAIL">
+                            <input class="form-control" type="email" placeholder="{{curField.placeholder}}">
+                        </div>
+                        <div ng-switch-when="DATE">
+                            <input class="form-control" type="date">
+                        </div>
+                        <div ng-switch-when="RADIOS">
+                            <div class="radio">
+                                <div ng-repeat="currOption in curField.options">
+                                    <label><input type="radio" name="{{curField.label}}" value="{{currOption.value}}">{{currOption.label}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="CHECKBOXES">
+                            <div ng-repeat="currOption in curField.options">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{currOption.value}}">{{currOption.label}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="OPTIONS">
+                            <select class="form-control">
+                                <option ng-repeat="currOption in curField.options" value="{{currOption.value}}">
+                                    {{currOption.label}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                        <span class="input-group-btn">
+                             <button class="btn btn-warning" type="button" ng-click="ttt()"><span
+                                     class="glyphicon glyphicon-pencil"></span></button>
+                             <button class="btn btn-success" type="button"><span
+                                     class="glyphicon glyphicon-plus"></span></button>
+                             <button class="btn btn-danger" type="button" ng-click="removeField($index)"><span
+                                     class="glyphicon glyphicon-remove"></span></button>
+                             <button class="btn btn-primary" type="button"><span
+                                     class="glyphicon glyphicon-align-justify"></span></button>
+                        </span>
+                </div>
             </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </button>
-    </div>
-</div>
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="inputLastName">Last Name</label>
-                <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
-            </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </button>
-    </div>
-</div>
-
-
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="inputDOB">Date of Birth</label>
-                <input type="date" class="form-control" id="inputDOB" placeholder="mm/dd/yyyy">
-            </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </button>
-    </div>
-</div>
-
-
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="inputGender">Gender</label>
-                <select class="form-control" id="inputGender">
-                    <option>Male</option>
-                    <option>Female</option>
+        </div>
+        <div class="form-group" ng-show="hasForm();">
+            <label for="addnewfield">Add New Field:</label>
+            <div class="input-group">
+                <select class="form-control" id="addnewfield" ng-model="inputType">
+                    <option value="Single Line Text">Single Line Text</option>
+                    <option value="Date">Date</option>
+                    <option value="Dropdown">Dropdown</option>
+                    <option value="Checkboxes">Checkboxes</option>
+                    <option value="Radio buttons">Radio buttons</option>
+                    <option value="Multi Line Text">Multi Line Text</option>
                 </select>
+                  <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" ng-click="addField()"><span
+                                class="glyphicon glyphicon-plus"></span></button>
+                  </span>
             </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </button>
-    </div>
-</div>
-
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <div>
-                    <label>Role</label>
-                    <div class="checkbox">
-                        <label for="isAdmin">
-                            <input type="checkbox" value="" id="isAdmin">
-                            Admin
-                        </label>
-                    </div>
-
-                    <div class="checkbox">
-                        <label for="isStudent">
-                            <input type="checkbox" value="" id="isStudent">
-                            Student
-                        </label>
-                    </div>
-
-                    <div class="checkbox">
-                        <label for="isUser">
-                            <input type="checkbox" value="" id="isUser">
-                            User
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </button>
-    </div>
-</div>
-
-
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label>License Agreement</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="licenseAgree" id="optionsRadios1" value="option1">
-                        Yes
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="licenseAgree" id="optionsRadios2" value="option2" checked>
-                        No
-                    </label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
-    <div class="col-sm-1 col-md-1 col-xs-1">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </button>
-    </div>
-</div>
-
-<hr size=1>
-
-<div class="field-row row">
-    <div class="col-sm-6  col-md-6 col-xs-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="addNewFields">Add New fields:</label>
-                <select class="form-control" id="addNewFields">
-                    <option>Single Line Text</option>
-                    <option>Date</option>
-                    <option>Dropdown</option>
-                    <option>Checkboxes</option>
-                    <option>Radio buttons</option>
-                    <option>Paragraph Text Field</option>
-                </select>
-            </div>
-        </form>
-    </div>
-    <div class="col-sm-1 col-sm-offset-1 col-md-1 col-md-offset-1 col-xs-1 col-xs-offset-1 ">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>
+        </div>
+    </form>
 </div>

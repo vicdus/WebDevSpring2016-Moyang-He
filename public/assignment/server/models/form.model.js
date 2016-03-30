@@ -8,7 +8,8 @@ module.exports = function () {
         findFormsByUserId: findFormsByUserId,
         createForm: createForm,
         deleteFormById: deleteFormById,
-        updateFormById: updateFormById
+        updateFormById: updateFormById,
+        deleteFieldByFormIdAndFieldId:deleteFieldByFormIdAndFieldId
     };
     return api;
 
@@ -32,16 +33,15 @@ module.exports = function () {
     //    return allForms;
     //}
     //
-    //function findFormById(formId) {
-    //    var res = null;
-    //    for (var i = 0; i < allForms.length; i++) {
-    //        if (allForms[i]._id == formId) {
-    //            return allForms[i];
-    //        }
-    //    }
-    //    return null;
-    //}
-    //
+    function findFormById(formId) {
+        var deferred = q.defer();
+        var res = allForms.filter(function(form){
+            return form._id == formId;
+        })[0];
+        deferred.resolve(res);
+        return deferred.promise;
+    }
+
     function updateFormById(formId, form) {
         var deferred = q.defer();
         var userId = findUserIdByFormId(formId);
@@ -77,6 +77,19 @@ module.exports = function () {
                 return allForms[i].userId;
             }
         }
+    }
+
+    function deleteFieldByFormIdAndFieldId(formId, fieldId){
+        var deferred = q.defer();
+        for(var i = 0; i < allForms.length; i++){
+            if(allForms[i]._id == formId){
+                allForms[i].fields = allForms[i].fields.filter(function(field){
+                    return field._id != fieldId;
+                });
+                deferred.resolve(allForms[i].fields);
+            }
+        }
+        return deferred.promise;
     }
 
 

@@ -1,4 +1,14 @@
 <div ng-controller="FormController" class="table-responsive">
+    <h1 class="page-header">Forms : {{title}}</h1>
+    <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active' : $location.url().indexOf('forms') != -1}" role="presentation"><a
+                    href="#/forms">Forms</a></li>
+            <li ng-class="{'active' : $location.url().indexOf('fields') != -1}" role="presentation"><a href="#/fields">Fields</a>
+            </li>
+        </ul>
+    </ul>
+    <br>
     <table class="table table-striped">
         <thead>
         <tr>

@@ -3,7 +3,7 @@
 (function () {
     FormBuilderApp.controller('FormController', function ($scope, $rootScope, FormService) {
         var userId = $rootScope.user._id;
-        $scope.curForm = null;
+        $rootScope.curForm = null;
 
         FormService
             .findAllFormsForUser(userId)
@@ -14,25 +14,23 @@
         //TBD
         $scope.addForm = function () {
             var form = {title: $scope.title, userId: userId, _id: Math.random()};
-            if ($scope.curForm != null) {
-                FormService
-                    .createFormForUser(userId, form)
-                    .then(function (forms) {
-                        $scope.forms = forms;
-                        $scope.curForm = null;
-                        $scope.title = "";
-                    });
-            }
+            FormService
+                .createFormForUser(userId, form)
+                .then(function (forms) {
+                    $scope.forms = forms;
+                    $rootScope.curForm = null;
+                    $scope.title = "";
+                })
         };
 
         $scope.updateForm = function () {
-            if ($scope.curForm != null) {
-                $scope.curForm.title = $scope.title;
+            if ($rootScope.curForm != null) {
+                $rootScope.curForm.title = $scope.title;
                 FormService
-                    .updateFormById($scope.curForm._id, $scope.curForm)
+                    .updateFormById($rootScope.curForm._id, $rootScope.curForm)
                     .then(function (forms) {
                         $scope.forms = forms;
-                        $scope.curForm = null;
+                        $rootScope.curForm = null;
                         $scope.title = "";
                     })
             }
@@ -43,19 +41,20 @@
                 .deleteFormById($scope.forms[index]._id)
                 .then(function (forms) {
                     $scope.forms = forms;
-                    $scope.curForm = null;
+                    $rootScope.curForm = null;
                     $scope.title = "";
                 })
         };
 
         $scope.selectForm = function (index) {
-            $scope.curForm = {
+            $rootScope.curForm = {
                 _id: $scope.forms[index]._id,
                 userId: $rootScope.user._id,
                 title: $scope.forms[index].title,
                 fields: $scope.forms[index].fields
             };
-            $scope.title = $scope.curForm.title;
+            $scope.title = $rootScope.curForm.title;
+            console.log($rootScope.curForm);
         }
     })
 })();
