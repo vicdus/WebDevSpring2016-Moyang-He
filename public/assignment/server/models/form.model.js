@@ -9,9 +9,24 @@ module.exports = function () {
         createForm: createForm,
         deleteFormById: deleteFormById,
         updateFormById: updateFormById,
-        deleteFieldByFormIdAndFieldId:deleteFieldByFormIdAndFieldId
+        deleteFieldByFormIdAndFieldId:deleteFieldByFormIdAndFieldId,
+        createFieldForFormId:createFieldForFormId
     };
     return api;
+
+    function  createFieldForFormId(formId, field){
+        var deferred = q.defer();
+        for(var i = 0; i < allForms.length; i++){
+            if(allForms[i]._id == formId){
+                field._id = Math.random();
+                allForms[i].fields.push(field);
+                deferred.resolve(allForms[i].fields);
+                break;
+            }
+        }
+        return deferred.promise;
+    }
+
 
     //function findFormByTitle(title) {
     //    var res = null;

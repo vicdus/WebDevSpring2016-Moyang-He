@@ -38,10 +38,12 @@ module.exports = function (app, model) {
     function createFieldForFormId(req, res) {
         var formId = req.params.formId;
         var field = req.body;
+
         model
             .createFieldForFormId(formId, field)
-            .then(function (forms) {
-                res.json(forms);
+            .then(function (field) {
+                console.log("yo");
+                res.json(field);
             });
     }
 

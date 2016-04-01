@@ -21,27 +21,60 @@
 
 
         $scope.addField = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: '/assignment/client/views/forms/myModalContent.html',
-                controller: 'ModalInstanceCtrl',
-                size: "sm",
-                resolve: {
-                    items: {
-                        sp: $scope.showPlaceHolder(), so: $scope.showOptions()
-                    }
-
+                var newType = null;
+                if($scope.inputType == "Single Line Text"){
+                    newType = "TEXT";
                 }
-            });
-
-            modalInstance.result.then(
-                function (selectedItem) {
-                    $scope.selected = selectedItem;
-                },
-                function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
+                if($scope.inputType == "Date"){
+                    newType = "DATE";
+                }
+                if($scope.inputType == "Dropdown"){
+                    newType = "OPTIONS";
+                }
+                if($scope.inputType == "Checkboxes"){
+                    newType = "CHECKBOXES";
+                }
+                if($scope.inputType == "Radio buttons"){
+                    newType = "RADIOS";
+                }
+                if($scope.inputType == "Multi Line Text"){
+                    newType = "TEXTAREA";
+                }
+                if(newType != null){
+                    var newField = {label: "New " + $scope.inputType, type: newType};
+                    FieldService
+                        .createFieldForForm($scope.form._id, newField)
+                        .then(function(fields) {
+                            $rootScope.curForm.fields = fields;
+                            $scope.form.fields = fields;
+                            console.log(fields);
+                        });
+                }
         };
+
+
+        //$scope.addField = function () {
+        //    var modalInstance = $uibModal.open({
+        //        animation: true,
+        //        templateUrl: '/assignment/client/views/forms/myModalContent.html',
+        //        controller: 'ModalInstanceCtrl',
+        //        size: "sm",
+        //        resolve: {
+        //            items: {
+        //                sp: $scope.showPlaceHolder(), so: $scope.showOptions()
+        //            }
+        //
+        //        }
+        //    });
+        //
+        //    modalInstance.result.then(
+        //        function (selectedItem) {
+        //            $scope.selected = selectedItem;
+        //        },
+        //        function () {
+        //            $log.info('Modal dismissed at: ' + new Date());
+        //        });
+        //};
         $scope.removeField = function (ind) {
             FieldService
                 .deleteFieldFromForm($scope.form._id, $scope.form.fields[ind]._id)
