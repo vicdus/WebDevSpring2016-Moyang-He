@@ -39,9 +39,14 @@
             FieldService
                 .updateField(formId, fieldId, newField)
                 .then(function (field) {
+                    console.log("uo");
                     $uibModalInstance.close(field)
                 })
 
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
         };
 
 

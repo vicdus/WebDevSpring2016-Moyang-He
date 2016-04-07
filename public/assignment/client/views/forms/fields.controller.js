@@ -86,12 +86,13 @@
         $scope.ok = function () {
             var newField = {};
             newField._id = $scope.field._id;
-            newField.label = $scope.field.label;
+            newField.label = $scope.new_label;
             newField.type = $scope.field.type;
             if ($scope.showOptions()) {
                 var objoptions = [];
                 var strs = $scope.new_options.split("\n");
                 for (var i = 0; i < strs.length; i++) {
+                    if(strs[i] == "") break;
                     objoptions.push(JSON.parse(strs[i]));
                 }
                 newField.options = objoptions;
@@ -102,10 +103,6 @@
             $scope.okM($scope.formId, newField._id, newField);
 
 
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
         };
 
 
