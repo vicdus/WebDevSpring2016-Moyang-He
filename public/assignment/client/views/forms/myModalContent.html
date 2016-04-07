@@ -2,16 +2,16 @@
     <div class="modal-body">
 
         <label for="label">Label</label>
-        <input type="text" ng-model="label" class="form-control" id="label">
+        <input type="text" ng-model="new_label" class="form-control" id="label">
 
-        <div ng-show="sp">
+        <div ng-show="showPlaceHolder()">
             <label for="placeholder">Placeholder</label>
-            <input type="text" ng-model="placeholder" class="form-control" id="placeholder">
+            <input type="text" ng-model="new_placeholder" class="form-control" id="placeholder">
         </div>
 
-        <div ng-show="so">
+        <div ng-show="showOptions()">
             <label for="options">Options</label>
-            <textarea class="form-control" ng-model="options" id="options" rows=4> </textarea>
+            <textarea class="form-control" ng-model="new_options" id="options" rows=4> </textarea>
         </div>
 
     </div>

@@ -54,7 +54,6 @@
                 fields: $scope.forms[index].fields
             };
             $scope.title = $rootScope.curForm.title;
-            console.log($rootScope.curForm);
         }
     })
 })();
