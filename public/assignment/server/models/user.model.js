@@ -1,9 +1,8 @@
 'use strict';
 var q = require("q");
 
-module.exports = function () {
+module.exports = function (mongoose, db) {
     var api;
-    var allUsers = require("./user.mock.json");
     api = {
         createUser: createUser,
         //deleteUserById: deleteUserById,
@@ -14,6 +13,20 @@ module.exports = function () {
         //findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials
     };
+
+    var UserSchema = require('./user.schema.js')(mongoose);
+    var allUsers = require("./user.mock.json");
+
+
+    var userModel = mongoose.model("userModel", UserSchema);
+
+    userModel.remove({}, function (err, users) {
+    });
+    for (var i = 0; i < allUsers.length; i++) {
+        userModel.create(allUsers[i], function (err, res) {
+        });
+    }
+
 
     return api;
 
@@ -31,14 +44,17 @@ module.exports = function () {
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
         var res = null;
-        for (var i = 0; i < allUsers.length; i++) {
-            if (allUsers[i].username == credentials.username && allUsers[i].password == credentials.password) {
-                deferred.resolve(allUsers[i]);
-                break;
+        userModel.findOne({username: credentials.username, password: credentials.password}, function (err, user) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(user);
             }
-        }
+        });
+
         return deferred.promise;
     }
+
     //
     //function findAllUsers() {
     //    var deferred = q.defer();
@@ -48,8 +64,14 @@ module.exports = function () {
 
     function createUser(newUser) {
         var deferred = q.defer();
-        allUsers.push(newUser);
-        deferred.resolve(newUser);
+        userModel.create(newUser, function (err, users) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(users);
+            }
+        });
+
         return deferred.promise;
     }
 
@@ -66,13 +88,20 @@ module.exports = function () {
 
     function updateUserById(UserId, User) {
         var deferred = q.defer();
-        for (var i = 0; i < allUsers.length; i++) {
-            if (allUsers[i]._id == UserId) {
-                allUsers[i] = User;
-                deferred.resolve(User);
-                break;
+        userModel.update({_id: UserId}, {$set: User}, function (err, user) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                userModel.findOne({_id: UserId}, function (err, user) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        console.log(user);
+                        deferred.resolve(user);
+                    }
+                });
             }
-        }
+        });
         return deferred.promise;
     }
 
