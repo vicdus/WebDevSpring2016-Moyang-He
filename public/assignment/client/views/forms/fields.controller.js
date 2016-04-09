@@ -63,6 +63,19 @@
                 });
         };
 
+        $scope.copyField = function (ind) {
+            var newField = {};
+            newField.label = $scope.form.fields[ind].label;
+            newField.type = $scope.form.fields[ind].type;
+            newField.placeholder = $scope.form.fields[ind].placeholder;
+            newField.options = $scope.form.fields[ind].options;
+            FieldService
+                .createFieldForForm($scope.form._id, newField)
+                .then(function (fields) {
+                    $rootScope.curForm.fields = fields;
+                    $scope.form.fields = fields;
+                });
+        };
 
         $scope.removeField = function (ind) {
             FieldService
