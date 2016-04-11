@@ -11,9 +11,8 @@
                 $scope.forms = forms;
             });
 
-        //TBD
         $scope.addForm = function () {
-            var form = {title: $scope.title, userId: userId, _id: Math.random()};
+            var form = {title: $scope.title, userId: userId};
             FormService
                 .createFormForUser(userId, form)
                 .then(function (forms) {
@@ -53,7 +52,7 @@
                 title: $scope.forms[index].title,
                 fields: $scope.forms[index].fields
             };
-            $scope.title = $rootScope.curForm.title;
+            $scope.selectedTitle = $rootScope.curForm.title;
         }
     })
 })();

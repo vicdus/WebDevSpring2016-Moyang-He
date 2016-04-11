@@ -29,7 +29,7 @@
                 newType = "TEXTAREA";
             }
             if (newType != null) {
-                var newField = {label: "New " + $scope.inputType, type: newType, options: [], placeholder: ""};
+                var newField = {label: "New " + $scope.inputType, fieldType: newType};
                 FieldService
                     .createFieldForForm($scope.form._id, newField)
                     .then(function (fields) {
@@ -66,7 +66,7 @@
         $scope.copyField = function (ind) {
             var newField = {};
             newField.label = $scope.form.fields[ind].label;
-            newField.type = $scope.form.fields[ind].type;
+            newField.fieldType = $scope.form.fields[ind].fieldType;
             newField.placeholder = $scope.form.fields[ind].placeholder;
             newField.options = $scope.form.fields[ind].options;
             FieldService
@@ -87,12 +87,12 @@
 
 
         $scope.showOptions = function () {
-            var type = $scope.field.type;
-            return type == "OPTIONS" || type == "CHECKBOXES" || type == "RADIOS";
+            var fieldType = $scope.field.fieldType;
+            return fieldType == "OPTIONS" || fieldType == "CHECKBOXES" || fieldType == "RADIOS";
         };
         $scope.showPlaceHolder = function () {
-            var type = $scope.field.type;
-            return type == "TEXT" || type == "TEXTAREA" || type == "EMAIL";
+            var fieldType = $scope.field.fieldType;
+            return fieldType == "TEXT" || fieldType == "TEXTAREA" || fieldType == "EMAIL";
         };
 
 
@@ -100,12 +100,12 @@
             var newField = {};
             newField._id = $scope.field._id;
             newField.label = $scope.new_label;
-            newField.type = $scope.field.type;
+            newField.fieldType = $scope.field.fieldType;
             if ($scope.showOptions()) {
                 var objoptions = [];
                 var strs = $scope.new_options.split("\n");
                 for (var i = 0; i < strs.length; i++) {
-                    if(strs[i] == "") break;
+                    if (strs[i] == "") break;
                     objoptions.push(JSON.parse(strs[i]));
                 }
                 newField.options = objoptions;

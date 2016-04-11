@@ -6,8 +6,8 @@ module.exports = function (mongoose, db) {
     api = {
         createUser: createUser,
         //deleteUserById: deleteUserById,
-        //findAllUsers: findAllUsers,
-        //findUserById: findUserById,
+        findAllUsers: findAllUsers,
+        findUserById: findUserById,
         updateUserById: updateUserById,
 
         //findUserByUsername: findUserByUsername,
@@ -22,11 +22,14 @@ module.exports = function (mongoose, db) {
 
     userModel.remove({}, function (err, users) {
     });
-    for (var i = 0; i < allUsers.length; i++) {
-        userModel.create(allUsers[i], function (err, res) {
-        });
-    }
+    //for (var i = 0; i < allUsers.length; i++) {
+    //    userModel.create(allUsers[i], function (err, res) {
+    //    });
+    //}
 
+    var alice = {username: "alice", lastName: "alice", firstName: "alice", password: "alice"};
+    userModel.create(alice, function (err, user) {
+    });
 
     return api;
 
@@ -55,36 +58,45 @@ module.exports = function (mongoose, db) {
         return deferred.promise;
     }
 
-    //
-    //function findAllUsers() {
-    //    var deferred = q.defer();
-    //    deferred.resolve(allUsers);
-    //    return deferred.promise;
-    //}
+
+    function findAllUsers() {
+        var deferred = q.defer();
+        userModel.find({}, function (err, users) {
+            if (err) {
+                deferred.reject(err)
+            } else {
+                deferred.resolve(users)
+            }
+        });
+        return deferred.promise;
+    }
 
     function createUser(newUser) {
         var deferred = q.defer();
-        userModel.create(newUser, function (err, users) {
+        userModel.create(newUser, function (err, user) {
             if (err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(users);
+                console.log(user);
+                deferred.resolve(user);
             }
         });
 
         return deferred.promise;
     }
 
-    //
-    //function findUserById(userId) {
-    //    var deferred = q.defer();
-    //    for (var i = 0; i < allUsers.length; i++) {
-    //        if (allUsers[i]._id == userId) {
-    //            deferred.resolve(allUsers[i]);
-    //        }
-    //    }
-    //    return deferred.promise;
-    //}
+
+    function findUserById(userId) {
+        var deferred = q.defer();
+        userModel.findOne({_id: userId}, function (err, user) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(user);
+            }
+        });
+        return deferred.promise;
+    }
 
     function updateUserById(UserId, User) {
         var deferred = q.defer();

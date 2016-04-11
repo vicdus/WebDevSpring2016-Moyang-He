@@ -45,7 +45,6 @@
 
         function createUser(user) {
             var deferred = $q.defer();
-            user.id = Math.random();
             user.firstName = "";
             user.lastName = "";
             $http

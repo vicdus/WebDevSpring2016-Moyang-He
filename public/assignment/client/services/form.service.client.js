@@ -14,7 +14,7 @@
         };
         return api;
 
-        function createFormForUser(userid, newForm) {
+        function createFormForUser(userId, newForm) {
             var deferred = $q.defer();
             $http.post("/api/assignment/user/" + newForm.userId + "/form", newForm)
                 .success(function (forms) {

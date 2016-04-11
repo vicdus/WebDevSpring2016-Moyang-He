@@ -4,13 +4,12 @@
         $scope.field = field;
         $scope.formId = formId;
 
-
         $scope.showOptions = function () {
-            var type = field.type;
+            var type = field.fieldType;
             return type == "OPTIONS" || type == "CHECKBOXES" || type == "RADIOS";
         };
         $scope.showPlaceHolder = function () {
-            var type = field.type;
+            var type = field.fieldType;
             return type == "TEXT" || type == "TEXTAREA" || type == "EMAIL";
         };
 
@@ -39,7 +38,6 @@
             FieldService
                 .updateField(formId, fieldId, newField)
                 .then(function (field) {
-                    console.log("uo");
                     $uibModalInstance.close(field)
                 })
 
