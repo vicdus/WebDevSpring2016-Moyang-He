@@ -1,17 +1,81 @@
 'use strict';
 
+
 module.exports = function (app, model) {
-    app.get("/api/assignment/user/username=:username&password=:password", findUserByUsernameAndPassword);
-    //
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+    var mongoose = require("mongoose");
+
+    app.get('/api/loggedin', loggedin);
+    app.post("/api/login", passport.authenticate("local"), login);
+    app.post('/api/logout', logout);
+
+
     app.post("/api/assignment/user", createUser);
-    //app.delete("/api/assignment/user/:id", deleteUser);
-    //app.get("/api/assignment/user", findAllUsers);
+    app.delete("/api/assignment/user/:id", deleteUserById);
+    app.get("/api/assignment/user", findAllUsers);
     //
     app.put("/api/assignment/user/:id", updateUser);
     //
     ////app.get("/api/assignment/user/username=:username", findUserByUsername);
     //
     //app.get("/api/assignment/user/:id", findUserById);
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+    var auth = authorized;
+
+    function localStrategy(username, password, done) {
+        model
+            .findUserByCredentials({username: username, password: password})
+            .then(function (user) {
+                if (user == null) {
+                    return done(null, false)
+                } else {
+                    return done(null, user)
+                }
+            })
+    }
+
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        //console.log("deserializeUser");
+        model
+            .findUserById(user._id)
+            .then(function (user) {
+                    //console.log(user);
+                    done(null, user);
+                }
+            );
+    }
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
+
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
 
 
     function createUser(req, res) {
@@ -22,30 +86,7 @@ module.exports = function (app, model) {
                 res.json(users);
             });
     }
-    //
-    //function deleteUser(req, res) {
-    //    var userId = req.params.id;
-    //    model
-    //        .deleteUser(userId)
-    //}
-    //
-    //function findAllUsers(req, res) {
-    //    model
-    //        .findAllUsers()
-    //        .then(function (users) {
-    //            res.json(users);
-    //        });
-    //}
-    //
-    //
-    //function findUserById(req, res) {
-    //    var userId = req.params.id;
-    //    model
-    //        .findUserById(userId)
-    //        .then(function (user) {
-    //            res.json(user);
-    //        });
-    //}
+
 
     function updateUser(req, res) {
         var userId = req.params.id;
@@ -57,12 +98,20 @@ module.exports = function (app, model) {
             })
     }
 
-    function findUserByUsernameAndPassword(req, res) {
-        var credentials = {username: req.params.username, password: req.params.password};
+    function findAllUsers(req, res) {
         model
-            .findUserByCredentials(credentials)
-            .then(function (user) {
-                res.json(user);
+            .findAllUsers()
+            .then(function (users) {
+                res.json(users)
             })
     }
+
+    function deleteUserById(req, res) {
+        model
+            .deleteUserById(req.params.id)
+            .then(function (users) {
+                res.json(users);
+            })
+    }
+
 };

@@ -5,7 +5,7 @@ module.exports = function (mongoose, db) {
     var api;
     api = {
         createUser: createUser,
-        //deleteUserById: deleteUserById,
+        deleteUserById: deleteUserById,
         findAllUsers: findAllUsers,
         findUserById: findUserById,
         updateUserById: updateUserById,
@@ -22,14 +22,13 @@ module.exports = function (mongoose, db) {
 
     userModel.remove({}, function (err, users) {
     });
-    //for (var i = 0; i < allUsers.length; i++) {
-    //    userModel.create(allUsers[i], function (err, res) {
-    //    });
-    //}
 
-    var alice = {username: "alice", lastName: "alice", firstName: "alice", password: "alice"};
+
+    var alice = {username: "alice", lastName: "alice", firstName: "alice", password: "alice", roles: ["admin"]};
     userModel.create(alice, function (err, user) {
+        console.log(err);
     });
+
 
     return api;
 
@@ -45,17 +44,7 @@ module.exports = function (mongoose, db) {
     //}
 
     function findUserByCredentials(credentials) {
-        var deferred = q.defer();
-        var res = null;
-        userModel.findOne({username: credentials.username, password: credentials.password}, function (err, user) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(user);
-            }
-        });
-
-        return deferred.promise;
+        return userModel.findOne({username: credentials.username, password: credentials.password});
     }
 
 
@@ -72,6 +61,7 @@ module.exports = function (mongoose, db) {
     }
 
     function createUser(newUser) {
+        console.log(newUser);
         var deferred = q.defer();
         userModel.create(newUser, function (err, user) {
             if (err) {
@@ -87,15 +77,7 @@ module.exports = function (mongoose, db) {
 
 
     function findUserById(userId) {
-        var deferred = q.defer();
-        userModel.findOne({_id: userId}, function (err, user) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(user);
-            }
-        });
-        return deferred.promise;
+        return userModel.findOne({_id: userId});
     }
 
     function updateUserById(UserId, User) {
@@ -117,13 +99,17 @@ module.exports = function (mongoose, db) {
         return deferred.promise;
     }
 
-    //function deleteUserById(UserId) {
-    //    for (var i = 0; i < allUsers.length; i++) {
-    //        if (allUsers[i]._id == UserId) {
-    //            allUsers.splice(i, 1);
-    //            break;
-    //        }
-    //    }
-    //}
+    function deleteUserById(userId) {
+        var deferred = q.defer();
+        userModel
+            .remove({_id: userId}, function (err, res) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(res);
+                }
+            });
+        return deferred.promise;
+    }
 
 };
