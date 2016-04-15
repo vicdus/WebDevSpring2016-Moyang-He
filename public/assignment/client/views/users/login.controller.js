@@ -11,7 +11,6 @@
                     .login(user)
                     .then(
                         function (response) {
-                            console.log(response.data);
                             $rootScope.user = response.data;
                             $location.url("/profile");
                         },

@@ -7,7 +7,7 @@
         };
 
         $scope.isLogin = function () {
-            return $scope.user != null;
+            return $rootScope.user != null;
         };
 
         $scope.isAdminLogin = function () {

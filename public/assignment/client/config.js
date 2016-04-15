@@ -23,15 +23,18 @@
                     resolve: {isAdminLogin: isAdminLogin}
                 })
                 .when("/home", {
-                    templateUrl: "views/home/home.view.html"
+                    templateUrl: "views/home/home.view.html",
+                    resolve: {isLogIn: isLogin}
                 })
                 .when("/forms", {
                     templateUrl: "views/forms/forms.view.html",
-                    controller: "FormController"
+                    controller: "FormController",
+                    resolve: {isLogIn: isLogin}
                 })
                 .when("/fields", {
                     templateUrl: "views/forms/fields.view.html",
-                    controller: "FieldController"
+                    controller: "FieldController",
+                    resolve: {isLogIn: isLogin}
                 })
                 .otherwise({
                     redirectTo: '/home'
@@ -39,34 +42,26 @@
         });
 
 
-    function isLogin($q, $rootScope, $location) {
+    function isLogin($q, $http, $rootScope) {
         var deferred = $q.defer();
-        if ($rootScope.user != null) {
-            deferred.resolve();
-        } else {
-            deferred.reject();
-            $location.url("/login");
-        }
+        $http
+            .get("/api/loggedin")
+            .success(function (res) {
+                deferred.resolve(res);
+                $rootScope.user = res;
+            });
         return deferred.promise
     }
 
-    function isAdminLogin($q, $rootScope, $location) {
+    function isAdminLogin($q, $http, $rootScope) {
         var deferred = $q.defer();
-        if ($rootScope.user != null && $rootScope.user.roles != undefined) {
-            for (var i = 0; i < $rootScope.user.roles.length; i++) {
-                if ($rootScope.user.roles[i] == "admin") {
-                    deferred.resolve();
-                    return deferred.promise;
-                }
-            }
-            deferred.reject();
-            $location.url("/login");
-            return deferred.promise;
-        } else {
-            deferred.reject();
-            $location.url("/login");
-            return deferred.promise;
-        }
+        $http
+            .get("/api/adminloggedin")
+            .success(function (res) {
+                deferred.resolve(res);
+                $rootScope.user = res;
+            });
+        return deferred.promise
     }
 
 

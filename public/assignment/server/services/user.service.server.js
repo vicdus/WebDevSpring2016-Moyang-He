@@ -7,7 +7,9 @@ module.exports = function (app, model) {
     var mongoose = require("mongoose");
 
     app.get('/api/loggedin', loggedin);
+    app.get('/api/adminloggedin', adminLoggedin);
     app.post("/api/login", passport.authenticate("local"), login);
+
     app.post('/api/logout', logout);
 
 
@@ -44,11 +46,9 @@ module.exports = function (app, model) {
     }
 
     function deserializeUser(user, done) {
-        //console.log("deserializeUser");
         model
             .findUserById(user._id)
             .then(function (user) {
-                    //console.log(user);
                     done(null, user);
                 }
             );
@@ -69,12 +69,17 @@ module.exports = function (app, model) {
     }
 
     function logout(req, res) {
+        console.log(req.logOut);
         req.logOut();
         res.send(200);
     }
 
     function loggedin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : '0');
+        res.send(req.isAuthenticated() ? req.user : null);
+    }
+
+    function adminLoggedin(req, res) {
+        res.send(req.isAuthenticated() && req.user.roles.indexOf("admin") != -1 ? req.user : null);
     }
 
 
