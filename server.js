@@ -12,8 +12,9 @@ app.use(bodyParser.json({limit: '50mb'}));// for parsing application/json
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false})); // for parsing application/x-www-form-urlencoded
 multer();
 
+process.env.SESSION_SECRET = 'this is the secret';
 app.use(session({
-    secret: 'this is the secret',
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }));

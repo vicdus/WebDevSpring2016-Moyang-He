@@ -7,7 +7,8 @@ module.exports = function (app, model) {
     var mongoose = require("mongoose");
 
     app.get('/api/loggedin', loggedin);
-    app.get('/api/adminloggedin', adminLoggedin);
+    app.get('/api/adminLoggedin', adminLoggedin);
+    app.get('/api/isAdmin', isAdmin);
     app.post("/api/login", passport.authenticate("local"), login);
 
     app.post('/api/logout', logout);
@@ -19,7 +20,7 @@ module.exports = function (app, model) {
     //
     app.put("/api/assignment/user/:id", updateUser);
     //
-    ////app.get("/api/assignment/user/username=:username", findUserByUsername);
+    app.get("/api/assignment/user/username=:username", findUserByUsername);
     //
     //app.get("/api/assignment/user/:id", findUserById);
 
@@ -79,7 +80,17 @@ module.exports = function (app, model) {
     }
 
     function adminLoggedin(req, res) {
-        res.send(req.isAuthenticated() && req.user.roles.indexOf("admin") != -1 ? req.user : null);
+        res.send(req.isAuthenticated() && req.user.roles.indexOf("admin") != -1 ? req.user : 403);
+    }
+
+    function isAdmin(req, res, next) {
+        if (req.isAuthenticated() && req.user.roles.indexOf("admin") != -1) {
+            next();
+            console.log(req.user.roles.indexOf("admin") != -1);
+        } else {
+            req.logout();
+            res.send(403);
+        }
     }
 
 
@@ -108,6 +119,14 @@ module.exports = function (app, model) {
             .findAllUsers()
             .then(function (users) {
                 res.json(users)
+            })
+    }
+
+    function findUserByUsername(req, res) {
+        model
+            .findUserByUsername(req.params.username)
+            .then(function (user) {
+                res.json(user);
             })
     }
 

@@ -8,14 +8,26 @@
                 password: $scope.inputPassword,
                 email: $scope.inputEmail
             };
-            console.log(newUser);
 
             UserService
-                .createUser(newUser)
-                .then(function (createdUser) {
-                    $rootScope.user = createdUser;
-                    $location.path('/profile');
+                .findUserByUsername(newUser.username)
+                .then(function (user) {
+                    if (user != null) {
+                        window.alert("user already exists!");
+                    } else {
+                        UserService
+                            .createUser(newUser)
+                            .then(function (createdUser) {
+                                UserService
+                                    .login(createdUser)
+                                    .then(function (res) {
+                                        $location.path('/profile');
+                                    });
+                            });
+                    }
                 });
+
+
         };
 
     })

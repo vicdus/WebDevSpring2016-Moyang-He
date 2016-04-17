@@ -10,7 +10,7 @@ module.exports = function (mongoose, db) {
         findUserById: findUserById,
         updateUserById: updateUserById,
 
-        //findUserByUsername: findUserByUsername,
+        findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials
     };
 
@@ -33,15 +33,17 @@ module.exports = function (mongoose, db) {
     return api;
 
 
-    //function findUserByUsername(username) {
-    //    var res = null;
-    //    for (var i = 0; i < allUsers.length; i++) {
-    //        if (allUsers[i].username == username) {
-    //            return allUsers[i];
-    //        }
-    //    }
-    //    return null;
-    //}
+    function findUserByUsername(username) {
+        var deferred = q.defer();
+        userModel.findOne({username: username}, function (err, user) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(user);
+            }
+        });
+        return deferred.promise;
+    }
 
     function findUserByCredentials(credentials) {
         return userModel.findOne({username: credentials.username, password: credentials.password});

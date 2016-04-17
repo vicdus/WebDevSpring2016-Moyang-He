@@ -6,7 +6,7 @@
     function UserService($http, $q) {
         var api;
         api = {
-            //findUserByUsername: findUserByUsername,
+            findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
@@ -16,14 +16,15 @@
         };
 
 
-        //function findUserByUsername(username) {
-        //
-        //    $http
-        //        .get("/api/assignment/user/username=" + username)
-        //        .success(function (res) {
-        //            return res;
-        //        })
-        //}
+        function findUserByUsername(username) {
+            var deferred = $q.defer();
+            $http
+                .get("/api/assignment/user/username=" + username)
+                .success(function (res) {
+                    deferred.resolve(res);
+                });
+            return deferred.promise;
+        }
 
         function login(user) {
             return $http.post("/api/login", user);

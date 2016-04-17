@@ -56,7 +56,7 @@
     function isAdminLogin($q, $http, $rootScope) {
         var deferred = $q.defer();
         $http
-            .get("/api/adminloggedin")
+            .get("/api/adminLoggedin")
             .success(function (res) {
                 deferred.resolve(res);
                 $rootScope.user = res;
