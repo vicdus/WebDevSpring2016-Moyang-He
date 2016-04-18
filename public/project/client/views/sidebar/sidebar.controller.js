@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-    FormBuilderApp.controller('SidebarController', function SidebarController($scope, $rootScope, $location) {
+    WebRegApp.controller('SidebarController', function SidebarController($scope, $rootScope, $location) {
         $scope.isActive = function (item) {
             return $location.url() == "/" + item;
         };

@@ -1,16 +1,16 @@
 "use strict";
 
 (function () {
-    FormBuilderApp.factory("FormService", formService);
+    WebRegApp.factory("CourseService", CourseService);
 
-    function formService($http, $q) {
+    function CourseService($http, $q) {
         var api;
         api = {
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
             deleteFormById: deleteFormById,
             updateFormById: updateFormById,
-            findFormById:findFormById
+            findFormById: findFormById
         };
         return api;
 
@@ -51,7 +51,7 @@
             return deferred.promise;
         }
 
-        function findFormById(formId){
+        function findFormById(formId) {
             var deferred = $q.defer();
             $http.get("/api/assignment/form/" + formId)
                 .success(function (forms) {

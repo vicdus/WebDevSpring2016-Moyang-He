@@ -19,8 +19,11 @@
 
 
     <script src="app.js"></script>
+    <script src="views/header/header.controller.js"></script>
+    <script src="views/sidebar/sidebar.controller.js"></script>
     <script src="views/main/main.controller.js"></script>
-
+    <script src="views/course/mycourse.controller.js"></script>
+    <script src="views/course/search.controller.js"></script>
 </head>
 <body ng-controller="MainController">
 
@@ -29,8 +32,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-4" ng-include="'views/sidebar/sidebar.view.html'"></div>
-        <div class="col-lg-9 col-md-9 col-sm-8" ng-view></div>
+        <div class="col-lg-3 col-md-3 col-sm-3" ng-include="'views/sidebar/sidebar.view.html'"></div>
+        <!--<div class="col-lg-9 col-md-9 col-sm-10" ng-view></div>-->
     </div>
 </div>
 

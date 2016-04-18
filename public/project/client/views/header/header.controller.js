@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-    FormBuilderApp.controller('HeaderController', function ($scope, $rootScope, $http, $location, $window) {
+    WebRegApp.controller('HeaderController', function ($scope, $rootScope, $http, $location, $window) {
 
         $scope.isLogin = function () {
             return $rootScope.user != null;
