@@ -1,3 +1,69 @@
 <div ng-controller="MyCourseController">
-my course view
+    <h1> My Course</h1>
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Instructor</th>
+            <th>Day</th>
+            <th>Start Hour</th>
+            <th>End Hour</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="course in courses">
+            <td>{{course.CourseName}}</td>
+            <td>{{course.instructorId}}</td>
+            <td>{{course.whatDay}}</td>
+            <td>{{course.startHour}}</td>
+            <td>{{course.endHour}}</td>
+            <td>{{course.location}}</td>
+            <td>{{course.description}}</td>
+            <td>
+                <button class="btn btn-default" type="submit" ng-click="remove(course._id);">Remove</button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <div ng-show="isInstructor()">
+        <h3>Create New Course</h3>
+        <p>All fields are required</p>
+
+        <label for="CourseName">Username</label>
+        <input type="text" class="form-control" ng-model="newClass.CourseName" id="CourseName"
+               placeholder="New course name">
+
+        <label for="whatDay">Day</label>
+        <input type="number" class="form-control" ng-model="newClass.whatDay" id="whatDay"
+               placeholder="1 to 7 For Monday to Sunday">
+
+        <label for="startHour">Start hour</label>
+        <input type="number" class="form-control" ng-model="newClass.startHour" id="startHour"
+               placeholder="The Start Hour">
+
+        <label for="endHour">End hour</label>
+        <input type="number" class="form-control" ng-model="newClass.endHour" id="endHour"
+               placeholder="The end hour">
+
+        <label for="location">Location</label>
+        <input type="text" class="form-control" ng-model="newClass.location" id="location"
+               placeholder="Location for this class">
+
+        <label for="description">Description</label>
+        <input type="text" class="form-control" ng-model="newClass.description" id="description"
+               placeholder="Form Title">
+        <br>
+        <button type="button" ng-disabled="incomplete(newClass)" ng-click="createCourse(newClass)" class="btn btn-success btn-block">
+            Create Course
+        </button>
+        <br>
+        <p class="bg-danger" ng-show="hasConflict">Time Conflict!</p>
+    </div>
+
 </div>

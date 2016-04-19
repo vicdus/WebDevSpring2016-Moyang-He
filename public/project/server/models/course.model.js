@@ -1,7 +1,7 @@
 'use strict';
 var q = require("q");
 
-module.exports = function (mongoose, db, UserModel) {
+module.exports = function (mongoose, db) {
     var api;
     api = {
         findAllCourses: findAllCourses,
@@ -13,21 +13,44 @@ module.exports = function (mongoose, db, UserModel) {
 
     var CourseSchema = require("./course.schema.js")(mongoose);
     var CourseModel = mongoose.model("CourseModel", CourseSchema);
-
+    var UserSchema = require('./user.schema.js')(mongoose);
+    var UserModel = mongoose.model("UserModel", UserSchema);
     CourseModel.remove({}, function (err, res) {
     });
     var sample = {
-        CourseName: "CourseName",
-        instructorId: "instructorId",
-        location: "location",
+        CourseName: "Web Development",
+        instructorId: "Example Instructor 1",
+        location: "ORCAS",
+        whatDay: 4,
+        startHour: 15,
+        endHour: 19
+    };
+
+    var sample2 = {
+        CourseName: "Object Oriented Design",
+        instructorId: "Example Instructor 2",
+        location: "Whidby",
+        whatDay: 1,
+        startHour: 18,
+        endHour: 21
+    };
+
+    var sample3 = {
+        CourseName: "Algorithm",
+        instructorId: "Example Instructor 3",
+        location: "Brain Brige",
         whatDay: 1,
         startHour: 12,
-        endHour: 13
+        endHour: 14
     };
+
 
     CourseModel.create(sample, function (err, res) {
     });
-
+    CourseModel.create(sample2, function (err, res) {
+    });
+    CourseModel.create(sample3, function (err, res) {
+    });
 
     return api;
 
@@ -46,6 +69,7 @@ module.exports = function (mongoose, db, UserModel) {
                                 deferred.resolve(updatedCourse);
                             }
                         })
+
                     }
                 })
             }
@@ -62,7 +86,7 @@ module.exports = function (mongoose, db, UserModel) {
                     if (err) deferred.reject(err);
                     else {
                         course.enrolledInStudentsId = course.enrolledInStudentsId.filter(function (id) {
-                            return id != courseId;
+                            return id == courseId;
                         });
                         CourseModel.update({_id: courseId}, {$set: course}, function (err, updatedCourse) {
                             if (err) deferred.reject(err);
@@ -77,9 +101,6 @@ module.exports = function (mongoose, db, UserModel) {
         return deferred.promise;
     }
 
-    function noTimeConflict(userId, course) {
-        return userId == course;
-    }
 
     function findAllCourses() {
         var deferred = q.defer();
@@ -103,10 +124,23 @@ module.exports = function (mongoose, db, UserModel) {
 
     function findCoursesByUserId(userId) {
         var deferred = q.defer();
-        CourseModel.find({enrolledInStudentsId: userId}, function (err, courses) {
+        UserModel.findOne({_id: userId}, function (err, user) {
             if (err) deferred.reject(err);
-            else deferred.resolve(courses);
+            else {
+                if (user != null && user.role == "student") {
+                    CourseModel.find({enrolledInStudentsId: userId}, function (err, courses) {
+                        if (err) deferred.reject(err);
+                        else deferred.resolve(courses);
+                    });
+                } else {
+                    CourseModel.find({instructorId: userId}, function (err, courses) {
+                        if (err) deferred.reject(err);
+                        else deferred.resolve(courses);
+                    })
+                }
+            }
         });
+
         return deferred.promise;
     }
 };

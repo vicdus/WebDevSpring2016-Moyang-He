@@ -9,7 +9,7 @@ module.exports = function (app, model) {
     app.get('/api/loggedin', loggedin);
     app.get('/api/adminLoggedin', adminLoggedin);
     app.get('/api/isAdmin', isAdmin);
-    app.post("/api/login", passport.authenticate("local"), login);
+    app.post("/api/login", passport.authenticate("assignment"), login);
 
     app.post('/api/logout', logout);
 

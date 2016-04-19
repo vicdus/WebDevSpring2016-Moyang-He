@@ -5,11 +5,11 @@ module.exports = function (mongoose) {
         CourseName: String,
         instructorId: String,
         location: String,
+        enrolledInStudentsId: {type: [String], default: []},
         whatDay: {type: Number, min: 1, max: 7},
         startHour: {type: Number, min: 0, max: 24},
         endHour: {type: Number, min: 0, max: 24},
-        description: {type: String, default: "Class description"},
-        enrolledInStudentsId: {type: String, default: []}
+        description: {type: String, default: "Class description"}
     }, {collection: "course"});
 
     return CourseSchema;

@@ -8,9 +8,7 @@ module.exports = function (mongoose, db) {
         updateUserById: updateUserById,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
-        findUserById: findUserById,
-        sendLetterToUserId: sendLetterToUserId,
-        findLetterByUserId: findLetterByUserId
+        findUserById: findUserById
     };
 
     var UserSchema = require('./user.schema.js')(mongoose);
@@ -20,10 +18,13 @@ module.exports = function (mongoose, db) {
     });
 
 
-    var alice = {username: "alice", lastName: "alice", firstName: "alice", password: "alice", roles: ["student"]};
+    var alice = {username: "alice", fullName: "alice", password: "alice", role: "student"};
     UserModel.create(alice, function (err, user) {
     });
 
+    var bob = {username: "bob", fullName: "bob", password: "bob", role: "instructor"};
+    UserModel.create(bob, function (err, user) {
+    });
 
     return api;
 
@@ -77,35 +78,8 @@ module.exports = function (mongoose, db) {
         return UserModel.findOne({username: credentials.username, password: credentials.password});
     }
 
-    function sendLetterToUserId(userId, letter) {
-        var deferred = q.defer();
-        UserModel.findOne({username: userId}, function (err, user) {
-            if (err) deferred.reject(err);
-            else {
-                user.letters.push(letter);
-                UserModel.update({username: userId}, {$set: user});
-                deferred.resolve(user);
-            }
-        });
-        return deferred.promise;
-    }
-
-
-    function findLetterByUserId(userId) {
-        var deferred = q.defer();
-        UserModel.findOne({username: userId}, function (err, user) {
-            if (err) deferred.reject(err);
-            else deferred.resolve(user.letters);
-        });
-        return deferred.promise;
-    }
 
     function findUserById(userId) {
-        var deferred = q.defer();
-        UserModel.findOne({username: userId}, function (err, user) {
-            if (err) deferred.reject(err);
-            else deferred.resolve(user);
-        });
-        return deferred.promise;
+        return UserModel.findOne({_id: userId});
     }
 };

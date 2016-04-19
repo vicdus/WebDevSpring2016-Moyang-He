@@ -31,6 +31,7 @@
                 .success(function (res) {
                     deferred.resolve(res);
                 });
+            return deferred.promise;
         }
 
         function createCourseForUser(course, userId) {
@@ -40,6 +41,7 @@
                 .success(function (res) {
                     deferred.resolve(res);
                 });
+            return deferred.promise;
         }
 
         function enrollByUserIdAndCourseId(userId, courseId) {
@@ -49,6 +51,7 @@
                 .success(function (res) {
                     deferred.resolve(res);
                 });
+            return deferred.promise;
         }
 
         function quitByUserIdAndCourseId(userId, courseId) {
@@ -58,6 +61,7 @@
                 .success(function (res) {
                     deferred.resolve(res);
                 });
+            return deferred.promise;
         }
 
 

@@ -1,9 +1,8 @@
-<div ng-controller="SidebarController" class="col-lg-4 col-md-3 col-sm-2" >
+<div ng-controller="SidebarController">
     <div class="list-group table-of-contents">
         <a class="list-group-item" href="#home">Home</a>
-        <a class="list-group-item" href="#search">Courses Search</a>
-        <a class="list-group-item" href="#mycourse">My Courses</a>
-        <a class="list-group-item" href="#letters">Letters</a>
+        <a class="list-group-item" ng-show="isLogin()" href="#search">Courses Search</a>
+        <a class="list-group-item" ng-show="isLogin()" href="#mycourse">My Courses</a>
     </div>
 </div>
 
