@@ -17,14 +17,16 @@
         <tbody>
         <tr ng-repeat="course in courses">
             <td>{{course.CourseName}}</td>
-            <td>{{course.instructorId}}</td>
+            <td>{{course.instructorUsername}}</td>
             <td>{{course.whatDay}}</td>
             <td>{{course.startHour}}</td>
             <td>{{course.endHour}}</td>
             <td>{{course.location}}</td>
             <td>{{course.description}}</td>
             <td>
-                <button class="btn btn-default" type="submit" ng-click="remove(course._id);">Remove</button>
+                <button class="btn btn-default" type="submit" ng-show="!isInstructor()" ng-click="remove(course._id);">
+                    Quit
+                </button>
             </td>
         </tr>
 
@@ -35,7 +37,7 @@
         <h3>Create New Course</h3>
         <p>All fields are required</p>
 
-        <label for="CourseName">Username</label>
+        <label for="CourseName">Course Name</label>
         <input type="text" class="form-control" ng-model="newClass.CourseName" id="CourseName"
                placeholder="New course name">
 
@@ -59,11 +61,17 @@
         <input type="text" class="form-control" ng-model="newClass.description" id="description"
                placeholder="Form Title">
         <br>
-        <button type="button" ng-disabled="incomplete(newClass)" ng-click="createCourse(newClass)" class="btn btn-success btn-block">
+        <button type="button" ng-disabled="incomplete(newClass)" ng-click="createCourse(newClass)"
+                class="btn btn-success btn-block">
             Create Course
         </button>
         <br>
         <p class="bg-danger" ng-show="hasConflict">Time Conflict!</p>
     </div>
+
+
+    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=I+am+having+{{twittercourse()}}"
+       data-size="large">
+        Share to Twitter!</a>
 
 </div>

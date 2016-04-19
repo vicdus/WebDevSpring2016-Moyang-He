@@ -9,13 +9,11 @@ module.exports = function (app, UserModel) {
     app.get('/api/project/loggedin', loggedin);
     passport.use("projectLogin", new LocalStrategy(localStrategy));
     app.post("/api/project/login", passport.authenticate("projectLogin"), login);
-    app.get("/api/project/user/username=:username", findUserByUsername);
-    app.get("/api/project/letter/:id", findLetterByUserId);
+    //app.get("/api/project/user/username=:username", findUserByUsername);
 
     app.post("/api/project/user", createUser);
     app.put("/api/project/user/:id", updateUserById);
 
-    app.post("/api/project/letter/", sendLetterToUserId);
 
     app.post('/api/project/logout', logout);
 
@@ -86,20 +84,13 @@ module.exports = function (app, UserModel) {
     }
 
     function updateUserById(req, res) {
-        //var deferred = q.defer();
-        //UserModel
-        //return deferred.promise;
+        UserModel
+            .updateUserById(req.body, req.params.id)
+            .then(function (user) {
+                res.json(user);
+            })
     }
 
-    function findUserByUsername(req, res) {
-    }
 
-    function findLetterByUserId(req, res) {
-
-    }
-
-    function sendLetterToUserId(req, res) {
-
-    }
 
 };

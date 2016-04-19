@@ -19,6 +19,10 @@
                 })
         }
 
+        $scope.isInstructor = function () {
+            return $rootScope.user.role == "instructor";
+        };
+
         getAllCourses();
         getMyCourses();
         $scope.hasConflict = false;

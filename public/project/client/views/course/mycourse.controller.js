@@ -26,6 +26,8 @@
         };
 
         $scope.createCourse = function (newCourse) {
+            newCourse.instructorId = $rootScope.user._id;
+            newCourse.instructorUsername = $rootScope.user.username;
             if (noTimeConflict(newCourse)) {
                 CourseService
                     .createCourseForUser(newCourse, $rootScope.user._id)
@@ -40,8 +42,8 @@
         };
 
         $scope.incomplete = function (newClass) {
-            return newClass == null || newClass.CourseName == "" || newClass.whatDay == "" || newClass.startHour == "" ||
-                newClass.endHour == "" || newClass.location == "" || newClass.description == "";
+            return newClass == null || newClass.CourseName == null || newClass.whatDay == null || newClass.startHour == null ||
+                newClass.endHour == null || newClass.location == null || newClass.description == null;
         };
 
 
@@ -52,6 +54,17 @@
             return conflict.length == 0;
         }
 
+
+        $scope.twittercourse = function () {
+            var res = "";
+            if ($scope.courses == null || $scope.courses.length == 0) {
+                return "no+class!"
+            }
+            for (var i = 0; $scope.courses != null && i < $scope.courses.length; i++) {
+                res += $scope.courses[i].CourseName.replace(" ", "+") + ", "
+            }
+            return res.slice(0, -2) + "!";
+        }
 
     }
 })();

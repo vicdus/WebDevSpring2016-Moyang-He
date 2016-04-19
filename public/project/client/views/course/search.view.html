@@ -17,14 +17,15 @@
         <tbody>
         <tr ng-repeat="course in courses">
             <td>{{course.CourseName}}</td>
-            <td>{{course.instrucorId}}</td>
+            <td>{{course.instructorUsername}}</td>
             <td>{{course.whatDay}}</td>
             <td>{{course.startHour}}</td>
             <td>{{course.endHour}}</td>
             <td>{{course.location}}</td>
             <td>{{course.description}}</td>
             <td>
-                <button class="btn btn-default" ng-click="take(course);" type="submit">Take</button>
+                <button class="btn btn-default" ng-show="!isInstructor()" ng-click="take(course);" type="submit">Take
+                </button>
             </td>
         </tr>
 

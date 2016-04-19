@@ -20,6 +20,7 @@ module.exports = function (mongoose, db) {
     var sample = {
         CourseName: "Web Development",
         instructorId: "Example Instructor 1",
+        instructorUsername: "professor 1",
         location: "ORCAS",
         whatDay: 4,
         startHour: 15,
@@ -29,6 +30,7 @@ module.exports = function (mongoose, db) {
     var sample2 = {
         CourseName: "Object Oriented Design",
         instructorId: "Example Instructor 2",
+        instructorUsername: "professor 2",
         location: "Whidby",
         whatDay: 1,
         startHour: 18,
@@ -38,6 +40,7 @@ module.exports = function (mongoose, db) {
     var sample3 = {
         CourseName: "Algorithm",
         instructorId: "Example Instructor 3",
+        instructorUsername: "professor 3",
         location: "Brain Brige",
         whatDay: 1,
         startHour: 12,

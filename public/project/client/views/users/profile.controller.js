@@ -3,23 +3,17 @@
 (function () {
     WebRegApp.controller("ProfileController", ProfileController);
     function ProfileController($scope, $rootScope, UserService) {
-        $scope.username = $rootScope.user.username;
-        $scope.password = $rootScope.user.password;
-        $scope.fullName = $rootScope.user.fullName;
+        $scope.updatedUser = $rootScope.user;
 
         $scope.update = function () {
-            console.log($rootScope.user);
-            //var modifiedUser = {
-            //    username: $scope.username,
-            //    password: $scope.password,
-            //    _id: $rootScope.user._id,
-            //    fullName: $scope.fullName
-            //};
-            //UserService
-            //    .updateUser($rootScope.user._id, modifiedUser)
-            //    .then(function (user) {
-            //        $rootScope.user = user;
-            //    })
+            $scope.updatedUser._id = $rootScope.user._id;
+            $scope.updatedUser.role = $rootScope.user.role;
+            console.log($scope.updatedUser);
+            UserService
+                .updateUserById($scope.updatedUser, $rootScope.user._id)
+                .then(function (user) {
+                    $rootScope.user = user;
+                })
         }
     }
 

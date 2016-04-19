@@ -43,21 +43,12 @@ module.exports = function (mongoose, db) {
         return deferred.promise;
     }
 
-    function updateUserById(UserId, User) {
+    function updateUserById(User, userId) {
         var deferred = q.defer();
-        UserModel.update({_id: UserId}, {$set: User}, function (err, user) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                userModel.findOne({_id: UserId}, function (err, user) {
-                    if (err) {
-                        deferred.reject(err);
-                    } else {
-                        console.log(user);
-                        deferred.resolve(user);
-                    }
-                });
-            }
+        UserModel.update({_id: userId}, {$set: User}, function (err, user) {
+            if (err)  deferred.reject(err);
+            else  deferred.resolve(user);
+            console.log(user)
         });
         return deferred.promise;
     }

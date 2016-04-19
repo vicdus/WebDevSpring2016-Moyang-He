@@ -4,6 +4,7 @@ module.exports = function (mongoose) {
     var CourseSchema = mongoose.Schema({
         CourseName: String,
         instructorId: String,
+        instructorUsername: String,
         location: String,
         enrolledInStudentsId: {type: [String], default: []},
         whatDay: {type: Number, min: 1, max: 7},
