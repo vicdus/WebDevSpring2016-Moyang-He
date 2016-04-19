@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    FormBuilderApp.controller("LoginController", LoginController);
+    WebRegApp.controller("LoginController", LoginController);
 
     function LoginController(UserService, $scope, $rootScope, $location) {
         $scope.login = login;
@@ -12,6 +12,7 @@
                     .then(
                         function (response) {
                             $rootScope.user = response.data;
+                            console.log($rootScope.user);
                             $location.url("/profile");
                         },
                         function (err) {

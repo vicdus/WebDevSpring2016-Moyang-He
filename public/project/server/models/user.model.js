@@ -8,6 +8,7 @@ module.exports = function (mongoose, db) {
         updateUserById: updateUserById,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
+        findUserById: findUserById,
         sendLetterToUserId: sendLetterToUserId,
         findLetterByUserId: findLetterByUserId
     };
@@ -19,7 +20,7 @@ module.exports = function (mongoose, db) {
     });
 
 
-    var alice = {username: "alice", lastName: "alice", firstName: "alice", password: "alice", roles: ["admin"]};
+    var alice = {username: "alice", lastName: "alice", firstName: "alice", password: "alice", roles: ["student"]};
     UserModel.create(alice, function (err, user) {
     });
 
@@ -99,5 +100,12 @@ module.exports = function (mongoose, db) {
         return deferred.promise;
     }
 
-
+    function findUserById(userId) {
+        var deferred = q.defer();
+        UserModel.findOne({username: userId}, function (err, user) {
+            if (err) deferred.reject(err);
+            else deferred.resolve(user);
+        });
+        return deferred.promise;
+    }
 };

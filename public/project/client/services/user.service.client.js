@@ -5,10 +5,14 @@
 
     function UserService($http, $q) {
         var api;
-        api = {};
+        api = {login: login};
 
         return api;
 
+
+        function login(user) {
+            return $http.post("/api/project/login", user);
+        }
 
     }
 })();

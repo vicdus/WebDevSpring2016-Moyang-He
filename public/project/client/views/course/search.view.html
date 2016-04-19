@@ -1,3 +1,32 @@
 <div ng-controller="SearchController">
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Instructor</th>
+            <th>Day</th>
+            <th>Start Hour</th>
+            <th>End Hour</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Course Id</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="course in courses">
+            <td> {{course.CourseName}}</td>
+            <td> {{course.CourseName}}</td>
+            <td>{{course.whatDay}}</td>
+            <td>{{course.startHour}}</td>
+            <td>{{course.endHour}}</td>
+            <td>{{course.location}}</td>
+            <td>{{course.description}}</td>
+            <td>{{course._id}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
 
 </div>

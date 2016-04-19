@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-    FormBuilderApp.controller('RegisterController', function ($scope, $rootScope, $location, UserService) {
+    WebRegApp.controller('RegisterController', function ($scope, $rootScope, $location, UserService) {
         $scope.reg = function () {
             var newUser = {
                 username: $scope.inputUsername,

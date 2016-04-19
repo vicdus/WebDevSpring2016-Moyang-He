@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-    FormBuilderApp
+    WebRegApp
         .config(function ($routeProvider) {
             $routeProvider
                 .when("/register", {
@@ -15,26 +15,21 @@
                 .when("/profile", {
                     templateUrl: "views/users/profile.view.html",
                     controller: "ProfileController",
-                    resolve: {isLogIn: isLogin}
-                })
-                .when("/admin", {
-                    templateUrl: "views/admin/admin.view.html",
-                    controller: "AdminController",
-                    resolve: {isAdminLogin: isAdminLogin}
+                    //resolve: {isLogin: isLogin}
                 })
                 .when("/home", {
                     templateUrl: "views/home/home.view.html",
-                    resolve: {isLogIn: isLogin}
+                    //resolve: {isLogin: isLogin}
                 })
-                .when("/forms", {
-                    templateUrl: "views/forms/forms.view.html",
-                    controller: "FormController",
-                    resolve: {isLogIn: isLogin}
+                .when("/mycourse", {
+                    templateUrl: "views/course/mycourse.view.html",
+                    controller: "MyCourseController",
+                    //resolve: {isLogin: isLogin}
                 })
-                .when("/fields", {
-                    templateUrl: "views/forms/fields.view.html",
-                    controller: "FieldController",
-                    resolve: {isLogIn: isLogin}
+                .when("/search", {
+                    templateUrl: "views/course/search.view.html",
+                    controller: "SearchController",
+                    //resolve: {isLogin: isLogin}
                 })
                 .otherwise({
                     redirectTo: '/home'
@@ -45,19 +40,9 @@
     function isLogin($q, $http, $rootScope) {
         var deferred = $q.defer();
         $http
-            .get("/api/loggedin")
+            .get("/api/project/loggedin")
             .success(function (res) {
-                deferred.resolve(res);
-                $rootScope.user = res;
-            });
-        return deferred.promise
-    }
-
-    function isAdminLogin($q, $http, $rootScope) {
-        var deferred = $q.defer();
-        $http
-            .get("/api/adminLoggedin")
-            .success(function (res) {
+                console.log(res);
                 deferred.resolve(res);
                 $rootScope.user = res;
             });

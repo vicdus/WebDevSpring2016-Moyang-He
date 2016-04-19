@@ -25,9 +25,8 @@
 
         $scope.logout = function () {
             $http
-                .post("/api/logout")
+                .post("/api/project/logout")
                 .success(function (res) {
-                    console.log("logout!");
                     $rootScope.user = null;
                     $window.location.reload();
                     $location.url("/login")
