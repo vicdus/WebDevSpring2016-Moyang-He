@@ -17,14 +17,11 @@ module.exports = function (app, model) {
     app.post("/api/assignment/user", createUser);
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.get("/api/assignment/user", findAllUsers);
-    //
     app.put("/api/assignment/user/:id", updateUser);
-    //
     app.get("/api/assignment/user/username=:username", findUserByUsername);
-    //
     //app.get("/api/assignment/user/:id", findUserById);
 
-    passport.use(new LocalStrategy(localStrategy));
+    passport.use("assignment", new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
     var auth = authorized;
