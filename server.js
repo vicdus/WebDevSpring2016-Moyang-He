@@ -27,7 +27,7 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 
-var db = mongoose.connect('mongodb://127.0.0.1:27017/cs5610');
+var db = mongoose.connect('mongodb://127.0.0.1:27017/cs5610-moyang-he');
 
 
 require("./public/assignment/server/app.js")(app, mongoose, db);

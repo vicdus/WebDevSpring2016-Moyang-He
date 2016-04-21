@@ -8,13 +8,22 @@ module.exports = function (mongoose, db) {
         updateUserById: updateUserById,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
-        findUserById: findUserById
+        findUserById: findUserById,
+        findLettersByUsername: findLettersByUsername,
+        createLetter: createLetter
     };
 
     var UserSchema = require('./user.schema.js')(mongoose);
     var UserModel = mongoose.model("ProjectUserModel", UserSchema);
 
+
+    var LetterSchema = require('./letter.schema.js')(mongoose);
+    var LetterModel = mongoose.model("letter", LetterSchema);
+
     UserModel.remove({}, function (err, users) {
+    });
+
+    LetterModel.remove({}, function (err, users) {
     });
 
 
@@ -72,5 +81,28 @@ module.exports = function (mongoose, db) {
 
     function findUserById(userId) {
         return UserModel.findOne({_id: userId});
+    }
+
+    function findLettersByUsername(username) {
+        var deferred = q.defer();
+        LetterModel.find({$or: [{fromUsername: username}, {toUsername: username}]}, function (err, letters) {
+            if (err) deferred.reject(err);
+            else deferred.resolve(letters);
+        });
+        return deferred.promise;
+    }
+
+    function createLetter(letter) {
+        var deferred = q.defer();
+        UserModel.findOne({username: letter.toUsername}, function (err, user) {
+            if (!user)  deferred.reject(err);
+            else {
+                LetterModel.create(letter, function (err, res) {
+                    if (err) deferred.reject(err);
+                    else deferred.resolve(res);
+                });
+            }
+        });
+        return deferred.promise;
     }
 };

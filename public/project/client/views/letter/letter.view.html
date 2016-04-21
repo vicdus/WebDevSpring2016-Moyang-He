@@ -1,0 +1,47 @@
+<div ng-controller="LetterController">
+
+    <h3>My Letters</h3>
+    <p>All fields are required</p>
+
+    <label for="addressee">Addressee</label>
+    <input type="text" class="form-control" ng-model="letter.toUsername" id="addressee"
+           placeholder="Addressee username">
+
+    <label for="content">Content</label>
+    <input type="text" class="form-control" ng-model="letter.content" id="content"
+           placeholder="Hi there!">
+
+    <br>
+    <button type="button" ng-disabled="incomplete(letter)" ng-click="send(letter)"
+            class="btn btn-success btn-block">
+        Send
+    </button>
+    <br> <br> <br> <br>
+
+    <h1> My Letters</h1>
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Sent From</th>
+            <th>Sent To</th>
+            <th>Content</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="aletter in letters">
+            <td>{{aletter.fromUsername}}</td>
+            <td>{{aletter.toUsername}}</td>
+            <td>{{aletter.content}}</td>
+            <td>{{aletter.date}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+    <br>
+
+
+</div>

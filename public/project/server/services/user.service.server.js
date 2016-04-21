@@ -17,6 +17,9 @@ module.exports = function (app, UserModel) {
 
     app.post('/api/project/logout', logout);
 
+    app.get("/api/project/letter/user/:username", findLettersByUsername);
+    app.post("/api/project/letter/", createLetter);
+
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -91,6 +94,21 @@ module.exports = function (app, UserModel) {
             })
     }
 
+    function findLettersByUsername(req, res) {
+        UserModel
+            .findLettersByUsername(req.params.username)
+            .then(function (letters) {
+                res.json(letters);
+            });
+    }
+
+    function createLetter(req, res) {
+        UserModel
+            .createLetter(req.body)
+            .then(function (letter) {
+                res.json(letter);
+            });
+    }
 
 
 };

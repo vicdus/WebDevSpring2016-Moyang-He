@@ -17,6 +17,11 @@
                     controller: "ProfileController",
                     resolve: {isLogin: isLogin}
                 })
+                .when("/letter", {
+                    templateUrl: "views/letter/letter.view.html",
+                    controller: "LetterController",
+                    resolve: {isLogin: isLogin}
+                })
                 .when("/home", {
                     templateUrl: "views/home/home.view.html",
                     resolve: {isLogin: isLogin}
