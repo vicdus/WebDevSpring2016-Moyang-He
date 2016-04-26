@@ -33,7 +33,30 @@
         </tbody>
     </table>
 
+
     <div ng-show="isInstructor()">
+
+
+        <h1> My Student</h1>
+        <table class="table table-striped table-responsive">
+            <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Enrolled in students</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="course in courses">
+                <td>{{course.CourseName}}</td>
+                <td>{{course.enrolledInUsername}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
         <h3>Create New Course</h3>
         <p>All fields are required</p>
 

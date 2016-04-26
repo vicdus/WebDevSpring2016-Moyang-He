@@ -64,8 +64,9 @@ module.exports = function (mongoose, db) {
             else {
                 CourseModel.findOne({_id: courseId}, function (err, course) {
                     if (err) deferred.reject(err);
-                    else {
+                    else if (course.enrolledInStudentsId.indexOf(userId) == -1) {
                         course.enrolledInStudentsId.push(user._id);
+                        course.enrolledInUsername.push(user.username);
                         CourseModel.update({_id: courseId}, {$set: course}, function (err, updatedCourse) {
                             if (err) deferred.reject(err);
                             else {
@@ -91,6 +92,11 @@ module.exports = function (mongoose, db) {
                         course.enrolledInStudentsId = course.enrolledInStudentsId.filter(function (id) {
                             return id == courseId;
                         });
+
+                        course.enrolledInUsername = course.enrolledInUsername.filter(function (username) {
+                            return username != user.username;
+                        });
+
                         CourseModel.update({_id: courseId}, {$set: course}, function (err, updatedCourse) {
                             if (err) deferred.reject(err);
                             else {
