@@ -42,17 +42,19 @@
 
     function isLogin($q, $http, $rootScope, $location) {
         var deferred = $q.defer();
-        //$http
-        //    .get("/api/project/loggedin")
-        //    .success(function (res) {
-        //        console.log(res);
-        //        deferred.resolve(res);
-        //        $rootScope.user = res;
-        //    });
-        //return deferred.promise
-        if ($rootScope.user == null) {
-            $location.path("/login");
-        }
+        $http
+            .get("/api/project/loggedin")
+            .success(function (res) {
+                deferred.resolve(res);
+                console.log(res);
+                $rootScope.user = res;
+            });
+        return deferred.promise;
+
+
+        //if ($rootScope.user == null) {
+        //    $location.path("/login");
+        //}
     }
 
 
