@@ -1,6 +1,6 @@
 'use strict';
 var q = require("q");
-
+var bcrypt = require("bcrypt-nodejs");
 module.exports = function (mongoose, db) {
     var api;
     api = {
@@ -27,11 +27,11 @@ module.exports = function (mongoose, db) {
     });
 
 
-    var alice = {username: "alice", fullName: "alice", password: "alice", role: "student"};
+    var alice = {username: "alice", fullName: "alice", password: bcrypt.hashSync("alice"), role: "student"};
     UserModel.create(alice, function (err, user) {
     });
 
-    var bob = {username: "bob", fullName: "bob", password: "bob", role: "instructor"};
+    var bob = {username: "bob", fullName: "bob", password: bcrypt.hashSync("bob"), role: "instructor"};
     UserModel.create(bob, function (err, user) {
     });
 

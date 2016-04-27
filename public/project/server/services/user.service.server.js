@@ -1,6 +1,6 @@
 'use strict';
 
-
+var bcrypt = require("bcrypt-nodejs");
 module.exports = function (app, UserModel) {
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
@@ -27,9 +27,9 @@ module.exports = function (app, UserModel) {
 
     function localStrategy(username, password, done) {
         UserModel
-            .findUserByCredentials({username: username, password: password})
+            .findUserByUsername(username)
             .then(function (user) {
-                if (user == null) {
+                if (user == null || !bcrypt.compareSync(password, user.password)) {
                     return done(null, false)
                 } else {
                     return done(null, user)
@@ -79,16 +79,20 @@ module.exports = function (app, UserModel) {
 
 
     function createUser(req, res) {
+        var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         UserModel
-            .createUser(req.body)
+            .createUser(user)
             .then(function (user) {
                 res.json(user);
             });
     }
 
     function updateUserById(req, res) {
+        var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         UserModel
-            .updateUserById(req.body, req.params.id)
+            .updateUserById(user, req.params.id)
             .then(function (user) {
                 res.json(user);
             })

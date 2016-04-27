@@ -1,6 +1,6 @@
 'use strict';
 var q = require("q");
-
+var bcrypt = require("bcrypt-nodejs");
 module.exports = function (mongoose, db) {
     var api;
     api = {
